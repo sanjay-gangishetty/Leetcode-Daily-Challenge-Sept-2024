@@ -58,20 +58,25 @@ class Solution {
     }
 }
 
-// Optimal Approach
+// Optimal Approach --- TC - O(n) ---- SC - O(1)
 class Solution {
-    public int chalkReplacer(int[] chalk, int initialChalkPieces) {
-        long totalChalkNeeded = 0;
-        for (int studentChalkUse : chalk) {
-            totalChalkNeeded += studentChalkUse;
+    public static int chalkReplacer(int[] chalk, int k) {
+        int n = chalk.length;
+        // Step 1: Calculate the total sum of chalk requirements
+        long sum = 0;  
+        for (int i = 0; i < n; i++) {
+            sum += chalk[i];
         }
-        int remainingChalk = (int)(initialChalkPieces % totalChalkNeeded);
-        for (int studentIndex = 0; studentIndex < chalk.length; studentIndex++) {
-            if (remainingChalk < chalk[studentIndex]) {
-                return studentIndex;
+        // Step 2: Find the effective chalk left after complete cycles
+        k %= sum;
+        // Step 3: Find the student who will replace the chalk
+        for (int i = 0; i < n; i++) {
+            if (k < chalk[i]) {
+                return i;  // This student does not have enough chalk, so they will replace it
             }
-            remainingChalk -= chalk[studentIndex];
+            k -= chalk[i];
         }
-        return 0;  
+        return -1;  
     }
 }
+
