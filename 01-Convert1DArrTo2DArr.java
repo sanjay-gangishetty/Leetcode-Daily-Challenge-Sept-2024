@@ -31,7 +31,7 @@ Constraints:
 	1 <= original[i] <= 105
 	1 <= m, n <= 4 * 104
 */
-// Brute Approach ---- TC - O(n^2) --- SC - O(n)
+// Brute Approach ---- TC - O(n) --- SC - O(n)
 class Solution {
     public int[][] construct2DArray(int[] original, int m, int n) {
         if(original.length != m*n){
@@ -44,6 +44,20 @@ class Solution {
                 arr[i][j] = original[ptr];
                 ptr++;
             }
+        }
+        return arr;
+    }
+}
+
+// Single Loop Approach ---- TC - O(n) --- SC - O(n)
+class Solution {
+    public int[][] construct2DArray(int[] original, int m, int n) {
+        if (original.length != m * n) {
+            return new int[0][0]; 
+        }
+        int[][] arr = new int[m][n];
+        for (int i = 0; i < original.length; i++) {
+            arr[i / n][i % n] = original[i];  // Calculate row as i / n and column as i % n
         }
         return arr;
     }
